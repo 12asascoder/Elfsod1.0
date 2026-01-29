@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Star, Clock, Globe, Award, Play, Users, TrendingUp, ArrowLeft, Share2, Bookmark, ChevronRight, Heart, Target, BarChart3, TrendingUp as TrendingUpIcon, Users as UsersIcon } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import LoadingScreen from '../components/LoadingScreen';
 
 const AdDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -404,18 +405,17 @@ const AdDetailPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <>
         <Navigation />
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-slate-600">Loading campaign details...</p>
-            </div>
-          </div>
-        </div>
+        <LoadingScreen 
+          title="Loading Campaign Details"
+          subtitle="Fetching ad performance and insights..."
+          variant="spinner"
+          showProgress={true}
+          duration={6500}
+        />
         <Footer />
-      </div>
+      </>
     );
   }
 

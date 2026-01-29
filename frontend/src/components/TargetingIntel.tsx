@@ -28,6 +28,10 @@ import {
   MoreVertical,
   Info,
   BarChart,
+} from 'lucide-react';
+import LoadingScreen from './LoadingScreen';
+
+import { 
   LineChart,
   TrendingDown,
   Cpu,
@@ -350,22 +354,11 @@ const TargetingIntel: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white p-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-center min-h-[600px]">
-            <div className="text-center">
-              <div className="relative">
-                <div className="w-20 h-20 border-4 border-gray-200 rounded-full"></div>
-                <div className="w-20 h-20 border-4 border-t-blue-500 border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin absolute top-0"></div>
-              </div>
-              <p className="mt-6 text-lg font-medium text-gray-700">Loading Targeting Intelligence</p>
-              <p className="mt-2 text-gray-500">
-                {userInfo ? `Analyzing data for ${userInfo.name}` : 'Preparing insights...'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <LoadingScreen 
+        title="Analyzing Targeting Intelligence"
+        subtitle={userInfo ? `Building audience insights for ${userInfo.name}...` : 'Preparing advanced targeting strategies...'}
+        variant="spinner"
+      />
     );
   }
 

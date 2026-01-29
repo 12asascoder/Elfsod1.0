@@ -84,6 +84,7 @@ import {
   Home,
   TrendingUp as TrendingUpIcon2,
 } from "lucide-react";
+import LoadingScreen from './LoadingScreen';
 
 // Import Recharts components
 import {
@@ -1506,17 +1507,13 @@ const AdSurveillance = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-t-blue-500 border-gray-200 rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-gray-600">
-            Loading surveillance dashboard...
-          </p>
-          <p className="text-sm text-gray-500 mt-2">
-            Preparing your competitive intelligence
-          </p>
-        </div>
-      </div>
+      <LoadingScreen 
+        title="Loading Surveillance Dashboard"
+        subtitle="Preparing your competitive intelligence and analytics..."
+        variant="spinner"
+        showProgress={true}
+        duration={6500}
+      />
     );
   }
 

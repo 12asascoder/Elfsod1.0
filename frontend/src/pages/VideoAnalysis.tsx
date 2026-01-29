@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Eye, Users, Sparkles, ExternalLink, Loader2, AlertTriangle, Target, MessageSquare, Palette, Clock, Heart, Zap, TrendingUp, BarChart3, PlayCircle, Image as ImageIcon, Type, AlertCircle, CheckCircle, XCircle, Percent, Layers, Film, Award } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
+import LoadingScreen from "../components/LoadingScreen";
 
 /* -------------------- Supabase -------------------- */
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://hkgcyrheviatmdflbxqu.supabase.co';
@@ -158,12 +159,11 @@ const VideoAnalysis: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600 text-lg">Loading ads...</p>
-        </div>
-      </div>
+      <LoadingScreen 
+        title="Loading Ads"
+        subtitle="Fetching video analysis data..."
+        variant="spinner"
+      />
     );
   }
 
