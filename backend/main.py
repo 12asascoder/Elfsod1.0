@@ -50,7 +50,7 @@ scripts = [
 
 
     # CommandCenter
-    ["python", os.path.join(BASE_DIR, "app/api/commandCenter/api_call.py")],
+    ["python", os.path.join(BASE_DIR, "app/api/commandCenter/main.py")],
     #["python", os.path.join(BASE_DIR, "app/api/commandCenter/generate_ad.py")]
 ]
 

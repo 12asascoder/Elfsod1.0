@@ -23,10 +23,10 @@ const Navigation: React.FC = () => {
     const checkAuthStatus = () => {
       const token = localStorage.getItem('token');
       const userStr = localStorage.getItem('user');
-      
+
       if (token) {
         setIsLoggedIn(true);
-        
+
         if (userStr) {
           try {
             const user = JSON.parse(userStr);
@@ -47,11 +47,11 @@ const Navigation: React.FC = () => {
 
     // Listen for storage changes (if user logs in/out in another tab)
     window.addEventListener('storage', checkAuthStatus);
-    
+
     // Listen for custom login event
     const handleLoginEvent = () => checkAuthStatus();
     window.addEventListener('userLoggedIn', handleLoginEvent);
-    
+
     return () => {
       window.removeEventListener('storage', checkAuthStatus);
       window.removeEventListener('userLoggedIn', handleLoginEvent);
@@ -64,7 +64,7 @@ const Navigation: React.FC = () => {
     { name: 'Targeting Intel', link: '/targeting_intel' },
     { name: 'Ad Surveillance', link: '/ad-surveillance' },
     { name: 'Auto Create', link: '/auto-create' },
-    { name: 'Reverse Engineering', link: '/video-analysis'}
+    { name: 'Reverse Engineering', link: '/video-analysis' }
   ];
 
   const handleNavClick = (link: string) => {
@@ -76,49 +76,58 @@ const Navigation: React.FC = () => {
     // Clear localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    
+
     // Update state
     setIsLoggedIn(false);
     setUserName(null);
     setIsMobileMenuOpen(false);
-    
+
     // Redirect to home
     navigate('/');
   };
 
   return (
-    <Navbar>
+    <Navbar className="bg-transparent backdrop-blur-md">
       {/* Desktop Navigation */}
-      <NavBody>
-        <NavbarLogo />
+      <NavBody className="bg-[#121212]/80 border-white/5 dark:bg-[#121212]/80 dark:border-white/5 rounded-[24px] max-w-[1550px] mt-4">
+        <div className="flex items-center gap-2 px-2">
+          <span className="text-2xl font-bold tracking-tighter text-white font-serif italic">ELFSOD</span>
+        </div>
+
         {isLoggedIn && (
-          <NavItems 
-            items={navItems} 
-            onItemClick={(link) => navigate(link)}
+          <NavItems
+            items={navItems}
+            className="text-slate-400"
           />
         )}
-        <div className="flex items-center gap-4">
+
+        <div className="flex items-center gap-6">
           {isLoggedIn ? (
             <>
               {/* Show user name */}
               {userName && (
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300 hidden md:block font-mulish">
-                  Welcome, {userName}
-                </span>
+                <div className="flex items-center gap-2 text-sm font-medium text-slate-300">
+                  <span className="opacity-60 font-medium">Hello,</span>
+                  <span className="text-white">{userName}</span>
+                </div>
               )}
-              <NavbarButton variant="secondary" onClick={handleLogout}>
+              <button
+                onClick={handleLogout}
+                className="px-6 py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-white text-sm font-bold hover:bg-white/5 transition-all"
+              >
                 Logout
-              </NavbarButton>
+              </button>
             </>
           ) : (
             <>
-              <NavbarButton 
+              <NavbarButton
                 variant="secondary"
                 onClick={() => navigate('login')}
+                className="text-white"
               >
                 Sign In
               </NavbarButton>
-              <NavbarButton 
+              <NavbarButton
                 variant="gradient"
                 onClick={() => navigate('sign-up')}
               >
@@ -145,14 +154,14 @@ const Navigation: React.FC = () => {
         >
           {navItems.map((item, idx) => (
             <button
-              key={`mobile-link-${idx}`}
+              key={`mobile - link - ${idx} `}
               onClick={() => handleNavClick(item.link)}
               className="relative text-neutral-600 dark:text-neutral-300 hover:text-cyan-600 transition-colors text-left w-full"
             >
               <span className="block font-medium">{item.name}</span>
             </button>
           ))}
-          
+
           {/* Mobile Auth Buttons */}
           <div className="flex w-full flex-col gap-4 mt-4">
             {isLoggedIn ? (

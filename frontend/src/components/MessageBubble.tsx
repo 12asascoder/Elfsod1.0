@@ -13,80 +13,54 @@ interface MessageBubbleProps {
 
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
   const isBot = message.type === 'bot';
-  
+
   const formatContent = (content: string) => {
-    let formatted = content;
-    
-    // Convert headers
-    formatted = formatted.replace(/^### (.+)$/gm, '<h3 class="text-lg font-bold text-slate-900 mt-4 mb-2">$1</h3>');
-    formatted = formatted.replace(/^#### (.+)$/gm, '<h4 class="text-base font-semibold text-slate-800 mt-3 mb-2">$1</h4>');
-    formatted = formatted.replace(/^##### (.+)$/gm, '<h5 class="text-sm font-semibold text-slate-700 mt-2 mb-1">$1</h5>');
-    
-    // Convert bold text
-    formatted = formatted.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>');
-    
-    // Convert bullet points with proper nesting
-    formatted = formatted.replace(/^\* (.+)$/gm, '<li class="ml-4 mb-1">$1</li>');
-    formatted = formatted.replace(/^\+ (.+)$/gm, '<li class="ml-8 mb-1 list-disc">$1</li>');
-    
-    // Wrap consecutive li elements in ul
-    formatted = formatted.replace(/(<li[^>]*>.*?<\/li>\s*)+/gs, (match) => {
-      return `<ul class="list-disc space-y-1 my-2">${match}</ul>`;
-    });
-    
-    // Convert line breaks to paragraphs
-    const lines = formatted.split('\n');
-    const paragraphs: string[] = [];
-    let currentParagraph = '';
-    
-    for (const line of lines) {
-      const trimmedLine = line.trim();
-      
-      // Check if line is already formatted (contains HTML tags)
-      if (trimmedLine.match(/^<(h[3-5]|ul|li)/)) {
-        if (currentParagraph) {
-          paragraphs.push(`<p class="mb-2 text-slate-700 leading-relaxed">${currentParagraph}</p>`);
-          currentParagraph = '';
-        }
-        paragraphs.push(trimmedLine);
-      } else if (trimmedLine === '') {
-        if (currentParagraph) {
-          paragraphs.push(`<p class="mb-2 text-slate-700 leading-relaxed">${currentParagraph}</p>`);
-          currentParagraph = '';
-        }
-      } else {
-        currentParagraph += (currentParagraph ? ' ' : '') + trimmedLine;
-      }
-    }
-    
-    if (currentParagraph) {
-      paragraphs.push(`<p class="mb-2 text-slate-700 leading-relaxed">${currentParagraph}</p>`);
-    }
-    
-    return paragraphs.join('');
+    // Preserve line breaks for simpler messages
+    return content.split('\n').map((line, i) => (
+      <span key={i} className="block mb-0.5 last:mb-0">
+        {line}
+      </span>
+    ));
   };
 
   return (
-    <div className={`flex ${isBot ? 'justify-start' : 'justify-end'}`}>
-      <div className={`max-w-3xl ${isBot ? 'mr-12' : 'ml-12'}`}>
-        <div className={`rounded-2xl px-5 py-4 ${
-          isBot 
-            ? 'bg-slate-50 text-slate-900 border border-slate-200' 
-            : 'bg-indigo-600 text-white'
-        }`}>
-          {isBot ? (
-            <div 
-              className="prose prose-sm max-w-none"
-              dangerouslySetInnerHTML={{ __html: formatContent(message.content) }}
-            />
-          ) : (
-            <p className="text-sm leading-relaxed">{message.content}</p>
-          )}
+    <div className={`flex ${isBot ? 'justify-start' : 'justify-end'} gap-3 mb-1.5`}>
+      {isBot && (
+        <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center overflow-hidden shadow-lg mt-1">
+          <img
+            src={`https://api.dicebear.com/7.x/avataaars/svg?seed=Bot&backgroundColor=1a1a1a`}
+            alt="AI"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <p className={`text-xs text-slate-500 mt-1.5 ${isBot ? 'text-left' : 'text-right'}`}>
+      )}
+
+      <div className={`flex flex-col ${isBot ? 'items-start' : 'items-end'} max-w-[85%]`}>
+        <div className={`relative px-4 py-2.5 rounded-[22px] ${isBot
+            ? 'bg-[#1a1a1a]/80 border border-white/10 text-slate-300 rounded-tl-none ring-1 ring-white/5'
+            : 'bg-white text-[#0a0a0a] rounded-tr-none font-medium shadow-xl shadow-white/5'
+          }`}>
+          {isBot && (
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 rounded-[22px] pointer-events-none" />
+          )}
+          <div className="relative text-[13px] leading-relaxed">
+            {formatContent(message.content)}
+          </div>
+        </div>
+        <span className="text-[10px] font-bold text-slate-500 mt-1 px-2 uppercase tracking-tight opacity-70">
           {message.timestamp}
-        </p>
+        </span>
       </div>
+
+      {!isBot && (
+        <div className="flex-shrink-0 w-9 h-9 rounded-full bg-white/10 border border-white/10 flex items-center justify-center overflow-hidden shadow-lg mt-1">
+          <img
+            src={`https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffffff10`}
+            alt="User"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
     </div>
   );
 };

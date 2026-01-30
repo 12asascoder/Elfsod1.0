@@ -36,6 +36,8 @@ export const colors = {
     600: 'bg-slate-600',
     700: 'bg-slate-700',
     800: 'bg-slate-800',
+    900: 'bg-slate-900',
+    950: 'bg-slate-950',
     text: 'text-slate-700',
     textLight: 'text-slate-500',
     textDark: 'text-slate-800',
@@ -58,11 +60,21 @@ export const colors = {
     secondary: 'bg-slate-50',
     gradient: 'bg-gradient-to-br from-slate-50 via-cyan-50 to-teal-50',
     card: 'bg-white',
-    hover: 'hover:bg-slate-50'
+    hover: 'hover:bg-slate-50',
+    dark: 'bg-[#0a0a0a]',
+    darkSecondary: 'bg-[#121212]',
+    darkCard: 'bg-[#1a1a1a]/80'
+  },
+
+  // Dark Theme Text
+  darkText: {
+    primary: 'text-white',
+    secondary: 'text-slate-400',
+    muted: 'text-slate-500'
   }
 };
 
-// Helper function to get combined classes
+// ... existing helpers ...
 export const getButtonClasses = (variant: 'primary' | 'secondary' = 'primary') => {
   if (variant === 'primary') {
     return `${colors.primary[600]} ${colors.primary.hover} text-white`;
