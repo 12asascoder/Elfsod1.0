@@ -77,7 +77,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
+    <div className="min-h-screen bg-black">
       <Navigation />
       
       {/* Subtle Background Effects */}
@@ -96,14 +96,14 @@ const Home: React.FC = () => {
 
       {/* Quick Filters with category selection */}
       <div className="px-6 py-8 max-w-7xl mx-auto">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">Browse by Category</h3>
+        <h3 className="text-2xl font-bold text-white mb-6">Browse by Category</h3>
         <div className="flex flex-wrap gap-4 mb-8">
           <button
             onClick={() => setSelectedCategory('sports')}
             className={`px-6 py-3 rounded-full font-medium transition-all ${
               selectedCategory === 'sports'
                 ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-900 text-white hover:bg-gray-800'
             }`}
           >
             🏈 Sports
@@ -113,7 +113,7 @@ const Home: React.FC = () => {
             className={`px-6 py-3 rounded-full font-medium transition-all ${
               selectedCategory === 'food'
                 ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-900 text-white hover:bg-gray-800'
             }`}
           >
             🍔 Food
@@ -123,7 +123,7 @@ const Home: React.FC = () => {
             className={`px-6 py-3 rounded-full font-medium transition-all ${
               selectedCategory === 'fashion'
                 ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-900 text-white hover:bg-gray-800'
             }`}
           >
             👗 Fashion
@@ -133,7 +133,7 @@ const Home: React.FC = () => {
             className={`px-6 py-3 rounded-full font-medium transition-all ${
               selectedCategory === 'recommended'
                 ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-900 text-white hover:bg-gray-800'
             }`}
           >
             💫 Recommended
@@ -145,13 +145,13 @@ const Home: React.FC = () => {
       <section className="px-6 py-12 max-w-7xl mx-auto">
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-white">
               {selectedCategory === 'sports' && '🏈 Sports Campaigns'}
               {selectedCategory === 'food' && '🍔 Food Campaigns'}
               {selectedCategory === 'fashion' && '👗 Fashion Campaigns'}
               {selectedCategory === 'recommended' && '💫 Recommended Campaigns'}
             </h2>
-            <button className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold">
+            <button className="flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold">
               See All
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -169,10 +169,10 @@ const Home: React.FC = () => {
       <section className="px-6 py-12 max-w-7xl mx-auto">
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-white">
               Trending Now
             </h2>
-            <button className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold">
+            <button className="flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold">
               See All
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -190,10 +190,10 @@ const Home: React.FC = () => {
       <section className="px-6 py-12 max-w-7xl mx-auto">
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-white">
               Top Performers
             </h2>
-            <button className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold">
+            <button className="flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold">
               See All
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
