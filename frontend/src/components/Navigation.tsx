@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   Navbar,
   NavBody,
-  NavItems,
   MobileNav,
   NavbarLogo,
   NavbarButton,
@@ -58,6 +58,8 @@ const Navigation: React.FC = () => {
     };
   }, []);
 
+  const location = useLocation();
+
   const navItems = [
     { name: 'Home', link: '/home' },
     { name: 'Command Center', link: '/command-center' },
@@ -66,6 +68,8 @@ const Navigation: React.FC = () => {
     { name: 'Auto Create', link: '/auto-create' },
     { name: 'Reverse Engineering', link: '/video-analysis' }
   ];
+
+  const firstName = userName ? userName.split(' ')[0] : null;
 
   const handleNavClick = (link: string) => {
     navigate(link);
@@ -89,31 +93,50 @@ const Navigation: React.FC = () => {
   return (
     <Navbar className="bg-transparent backdrop-blur-md">
       {/* Desktop Navigation */}
-      <NavBody className="bg-[#121212]/80 border-white/5 dark:bg-[#121212]/80 dark:border-white/5 rounded-[24px] max-w-[1550px] mt-4">
-        <div className="flex items-center gap-2 px-2">
-          <span className="text-2xl font-bold tracking-tighter text-white font-serif italic">ELFSOD</span>
+      <NavBody className="bg-[#121212] border-white/5 dark:bg-[#121212] dark:border-white/5 rounded-[18px] max-w-[1400px] mt-4 py-2">
+        <div className="flex items-center gap-2 px-4">
+          <Link to="/home" className="text-2xl font-bold tracking-[0.1em] text-white italic font-serif hover:opacity-80 transition-opacity">
+            ELFSOD
+          </Link>
         </div>
 
         {isLoggedIn && (
-          <NavItems
-            items={navItems}
-            className="text-slate-400"
-          />
+          <div className="hidden lg:flex items-center gap-8">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.link;
+              return (
+                <Link
+                  key={item.link}
+                  to={item.link}
+                  className={`relative py-1 text-sm font-medium transition-all ${isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                    }`}
+                >
+                  {item.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-underline"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-white rounded-full"
+                    />
+                  )}
+                </Link>
+              );
+            })}
+          </div>
         )}
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 pr-2">
           {isLoggedIn ? (
             <>
-              {/* Show user name */}
-              {userName && (
-                <div className="flex items-center gap-2 text-sm font-medium text-slate-300">
-                  <span className="opacity-60 font-medium">Hello,</span>
-                  <span className="text-white">{userName}</span>
+              {/* Show first name only */}
+              {firstName && (
+                <div className="flex items-center gap-1.5 text-sm font-medium text-slate-300">
+                  <span className="opacity-60">Hello,</span>
+                  <span className="text-white">{firstName}</span>
                 </div>
               )}
               <button
                 onClick={handleLogout}
-                className="px-6 py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-white text-sm font-bold hover:bg-white/5 transition-all"
+                className="px-8 py-2.5 rounded-full bg-black border border-white/10 text-white text-xs font-bold hover:bg-white/10 transition-all shadow-lg active:scale-95"
               >
                 Logout
               </button>
